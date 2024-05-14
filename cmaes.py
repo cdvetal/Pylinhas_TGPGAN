@@ -18,6 +18,8 @@ from utils import save_gen_best
 from config import *
 
 import time
+import warnings
+
 
 sep = os.path.sep
 cur_iteration = 0
@@ -181,8 +183,10 @@ def main_cma_es(args, fitness_func, se, wd, resolution, last_pop = None, last_st
     # The CMA-ES algorithm takes a population of one individual as argument
     # The centroid is set to a vector of 5.0 see http://www.lri.fr/~hansen/cmaes_inmatlab.html
     # for more details about the rastrigin and other tests for CMA-ES
-    creator.create("FitnessMax", base.Fitness, weights=(1.0,))
-    creator.create("Individual", np.ndarray, fitness=creator.FitnessMax)
+    with warnings.catch_warnings():
+        warnings.simplefilter("ignore")
+        creator.create("FitnessMax", base.Fitness, weights=(1.0,))
+        creator.create("Individual", np.ndarray, fitness=creator.FitnessMax)
 
     toolbox = base.Toolbox()
     #toolbox.register("evaluate", evaluate, args)

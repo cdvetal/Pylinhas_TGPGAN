@@ -101,7 +101,7 @@ class dcgan(object):
         train_mask = np.isin(y_train, self.classes_to_train)
 
         self.x_train = self.x_train[train_mask]
-        self.x_train = self.x_train[:64] # testing purposes
+        # self.x_train = self.x_train[:64] # testing purposes
 
         self.x_train = self.x_train.reshape(self.x_train.shape[0], self.img_rows, self.img_cols, self.channels).astype(
             'float32')

@@ -17,7 +17,7 @@ render_table = {
 }
 
 
-def setup_args(fit_func, se, dirs, resolution):
+def setup_args(resolution, dirs = None):
     parser = argparse.ArgumentParser(description="Evolve to objective")
     IMG_SIZE = resolution[0]
 
@@ -45,9 +45,10 @@ def setup_args(fit_func, se, dirs, resolution):
     parser.add_argument('--lamarck', default=LAMARCK, action='store_true', help='Lamarck. Default is {}.'.format(LAMARCK))
 
     args = parser.parse_args()
-    args.save_folder += dirs[0]
 
-    if args.from_checkpoint:
+
+    if args.from_checkpoint and dirs is not None:
+        args.save_folder += dirs[0]
         args.experiment_name = args.from_checkpoint.replace("_checkpoint.pkl", "")
         args.sub_folder = "from_checkpoint"
         save_folder, sub_folder = create_save_folder(args.save_folder, args.sub_folder)
@@ -87,7 +88,7 @@ def main(fitness_func, se, wd, resolution, population = None, strat = None, debu
     start_time_total = time()
 
     # Get arguments
-    args = setup_args(fitness_func, se, wd, resolution)
+    args = setup_args(resolution, dirs = wd)
 
     # Get time of start of the evolution
     start_time_evo = time()
