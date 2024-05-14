@@ -12,7 +12,7 @@ These images will constitute the fake batch that will later be fed to the discri
 Fitness assessment is then performed as a forward pass on the discriminator network followed by a sigmoid normalization.
 
 This ensures that whatever solutions the generator comes up with, generated solutions will be optimized to fool the network as we are maximizing over the direct discriminator's evaluation.
-While individuals in the first training step are randomly initialized by the EA, in subsequent training steps a given portion of the best-fitted individuals are taken from the last population of the previous training step, simulating elitism across training steps.
+While individuals in the first training step are randomly initialized, in subsequent training steps a given portion of the best-fitted individuals are taken from the last population of the previous training step, simulating elitism across training steps.
 
 After retrieving and converting the fake batch, another batch of images is fetched from the original dataset and both batches are passed to the discriminator for weights updating using standard backpropagation and the Adam Optimizer.
 
